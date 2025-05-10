@@ -11,11 +11,11 @@ export async function mockEnv() {
       header_bg_color: '#17212b',
       hint_color: '#708499',
       link_color: '#6ab3f3',
-      secondary_bg_color: '#232e3c',
+      secondary_bg_color: '#ffffff',
       section_bg_color: '#17212b',
       section_header_text_color: '#6ab3f3',
       subtitle_text_color: '#708499',
-      text_color: '#f5f5f5',
+      text_color: '#000000',
     } as const;
     const noInsets = { left: 0, top: 0, bottom: 0, right: 0 } as const;
 
