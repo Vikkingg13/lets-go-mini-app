@@ -33,13 +33,6 @@ export function Card({ card }: CardProps) {
         </div>
       </div>
       <div className="p-4">
-        <div className="flex justify-between items-start">
-          <h2 className="text-lg font-bold">{card.title}</h2>
-          <div className="flex items-center gap-1">
-            <Star className="fill-yellow-400 text-yellow-400" size={16} />
-            <span className="font-bold">{card.rating}</span>
-          </div>
-        </div>
         <p className="text-gray-600 text-sm mt-1">{card.description}</p>
         <div className="flex justify-between items-center mt-3">
           <div className="flex items-center gap-2">
@@ -47,14 +40,11 @@ export function Card({ card }: CardProps) {
               {card.category}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-gray-500 text-sm">
-            <MapPin size={14} />
-            <span>{card.distance}</span>
-          </div>
+
         </div>
-        <button className="w-full mt-3 text-left text-sm font-medium">
+        <button className="w-full mt-3 text-left text-sm text-black font-medium">
           Подробнее
-          <ChevronRight className="inline ml-1" size={16} />
+          <ChevronRight className="inline ml-12" size={16} />
         </button>
       </div>
     </div>

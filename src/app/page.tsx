@@ -50,7 +50,7 @@ export default function Home() {
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
       {/* Header */}
       <header className="p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Исследуй Город</h1>
+        <h1 className="text-xl font-bold text-black">Исследуй Город</h1>
         <div className="flex gap-2">
           <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <Globe size={16} />
@@ -78,7 +78,7 @@ export default function Home() {
         </button>
       </div>
 
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto pb-16">
         <div className="p-4 space-y-4">
           {loading ? (
             <div className="text-center py-4">Загрузка...</div>
