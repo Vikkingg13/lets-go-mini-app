@@ -78,7 +78,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Content */}
         <div className="flex-1 overflow-auto">
         <div className="p-4 space-y-4">
           {loading ? (
@@ -93,9 +92,7 @@ export default function Home() {
           )}
         </div>
       </div>
-
-      {/* Bottom Navigation */}
-          <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+        <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
     </Page>
   );
