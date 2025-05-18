@@ -8,41 +8,42 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { ChevronRight, Globe, MapPin, Search, SlidersHorizontal, Star } from "lucide-react"
+import { List } from '@telegram-apps/telegram-ui';
 
-import { Card as CardType } from '@/types/CardType'
-import { Card } from '@/components/Card/Card';
+import { Location as LocationType } from '@/types/Location';
+import { Location } from '@/components/Location/Location';
+import { LocationService } from '@/services/LocationService';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
-import { List, Navigation } from '@telegram-apps/telegram-ui';
 
 
 
 export default function Home() {
 
-  const [cards, setCards] = useState<CardType[]>([])
+  const [locations, setLocations] = useState<LocationType[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const t = useTranslations('i18n');
 
   const [activeTab, setActiveTab] = useState("overview")
 
+  const [search, setSearch] = useState('');
+  const filteredLocations = locations.filter(location =>
+  location.title.toLowerCase().includes(search.toLowerCase())
+);
+
     useEffect(() => {
-    const fetchCards = async () => {
+    const fetchLocations = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/locations') // или ваш API endpoint
-        if (!response.ok) {
-          throw new Error('Failed to fetch cards')
-        }
-        const data = await response.json()
-        setCards(data)
+        const data = await LocationService.fetchLocations()
+        setLocations(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
         setLoading(false)
       }
     }
-
-    fetchCards()
+    fetchLocations()
   }, [])
 
   return (
@@ -67,15 +68,14 @@ export default function Home() {
       <div className="px-4 pb-4 flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-          <input
-            type="text"
-            placeholder="Поиск мест..."
-            className="w-full pl-10 pr-3 py-3 border rounded-full text-sm"
-          />
+            <input
+              type="text"
+              placeholder="Поиск мест..."
+              className="w-full pl-10 pr-3 py-3 border rounded-full text-sm"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
         </div>
-        <button className="p-3 border rounded-full">
-          <SlidersHorizontal size={18} />
-        </button>
       </div>
 
         <div className="flex-1 overflow-auto">
@@ -85,14 +85,17 @@ export default function Home() {
           ) : error ? (
             <div className="text-center py-4 text-red-500">{error}</div>
           ) : (
-            <List>
-                {cards.map(card => (
-                <Card key={card.id} card={card} />))}
-            </List>
+          <List>
+            {Array.isArray(filteredLocations) && filteredLocations.map(location => (
+              <Location key={location.id} location={location} />
+            ))}
+          </List>
           )}
         </div>
       </div>
+      <div className="pb-16">
         <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
       </div>
     </Page>
   );
