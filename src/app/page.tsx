@@ -78,7 +78,7 @@ export default function Home() {
         </div>
       </div>
 
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto pt-32 pb-16">
         <div className="p-4 space-y-4">
           {loading ? (
             <div className="text-center py-4">Загрузка...</div>

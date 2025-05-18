@@ -14,14 +14,14 @@ export function BottomNavigation({ activeTab, setActiveTab }: BottomNavigationPr
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t z-50">
       <InlineButtons mode="plain" className="grid grid-cols-4 text-xs">
         <InlineButtonsItem
-          text="Обзор"
+          text="События"
           onClick={() => setActiveTab("overview")}
           className={`flex flex-col items-center py-3 ${activeTab === "overview" ? "text-black" : "text-gray-500"}`}
         >
           <MapPin className={activeTab === "overview" ? "fill-black" : ""} size={20} />
         </InlineButtonsItem>
         <InlineButtonsItem
-          text="Избранное"
+          text="Обзор"
           onClick={() => setActiveTab("favorites")}
           className={`flex flex-col items-center py-3 ${activeTab === "favorites" ? "text-black" : "text-gray-500"}`}
         >
@@ -40,14 +40,14 @@ export function BottomNavigation({ activeTab, setActiveTab }: BottomNavigationPr
           </svg>
         </InlineButtonsItem>
         <InlineButtonsItem
-          text="Поиск"
+          text="Карта"
           onClick={() => setActiveTab("search")}
           className={`flex flex-col items-center py-3 ${activeTab === "search" ? "text-black" : "text-gray-500"}`}
         >
           <Search className={activeTab === "search" ? "fill-black" : ""} size={20} />
         </InlineButtonsItem>
         <InlineButtonsItem
-          text="Профиль"
+          text="Избранное"
           onClick={() => setActiveTab("profile")}
           className={`flex flex-col items-center py-3 ${activeTab === "profile" ? "text-black" : "text-gray-500"}`}
         >
