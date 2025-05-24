@@ -28,6 +28,11 @@ export default function Main({ locations }: { locations: LocationType[] }) {
     location.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const [activeCategory, setActiveCategory] = useState('Все');
+
+  // Пример списка категорий (замените на свои фактические категории)
+  const categories = ['Все', 'Новые', 'Популярные', 'Парки', 'Музеи', 'Кафе', 'Рестораны', 'Спорт'];
+
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
@@ -47,19 +52,43 @@ export default function Main({ locations }: { locations: LocationType[] }) {
       </header>
       
       {/* Search */}
-      <div className="px-4 pb-4 flex gap-2">
+      <div className="px-4 pb-4 flex gap-2 text-black">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
             <input
               type="text"
               placeholder="Поиск мест..."
-              className="w-full pl-10 pr-3 py-3 border rounded-full text-sm"
+              className="w-full pl-10 pr-3 py-3 border rounded-xl text-sm"
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
         </div>
       </div>
 
+        {/* Горизонтальный список категорий */}
+        <div className="px-4 pb-4 overflow-x-auto whitespace-nowrap scrollbar">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`
+                inline-block // Позволяет кнопкам быть в одной строке и иметь отступы
+                px-2 py-1    // Внутренние отступы
+                border       // Граница
+                rounded-full // Полностью скругленные углы
+                text-xs      // Маленький размер текста
+                mr-2         // Отступ справа между кнопками
+                ${activeCategory === category
+                  ? 'bg-black text-white' // Активный стиль
+                  : 'border-gray-300 text-gray-700'} // Неактивный стиль
+              `}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+      {/* Locations */ }
         <div className="flex-1 overflow-auto">
         <div className="p-4 space-y-4">
 
