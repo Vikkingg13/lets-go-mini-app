@@ -31,11 +31,12 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   const [activeCategory, setActiveCategory] = useState('Все');
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['Все', 'Новые', 'Популярные', 'Парки', 'Музеи', 'Кафе', 'Рестораны', 'Спорт'];
+  const categories = ['Парки', 'Музеи', 'Кафе', 'Рестораны', 'Активный отдых'];
 
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
+
       {/* Header */}
       <header className="p-4 text-black flex justify-between items-center">
         <h1 className="text-xl font-bold">Исследуй Город</h1>
@@ -66,7 +67,7 @@ export default function Main({ locations }: { locations: LocationType[] }) {
       </div>
 
         {/* Горизонтальный список категорий */}
-        <div className="px-4 pb-4 overflow-x-auto whitespace-nowrap scrollbar">
+        <div className="px-4 overflow-x-auto whitespace-nowrap">
           {categories.map(category => (
             <button
               key={category}

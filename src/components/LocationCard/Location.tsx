@@ -2,12 +2,14 @@ import { Location as LocationType } from '@/types/Location';
 import { ChevronRight, Heart, MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface LocationProps {
   location: LocationType;
 }
 
 export function Location({ location }: LocationProps) {
+
   const [liked, setLiked] = useState(false);
 
   const badgeColors = [
@@ -21,6 +23,12 @@ export function Location({ location }: LocationProps) {
   const [randomColor] = useState(() =>
     badgeColors[Math.floor(Math.random() * badgeColors.length)]
   );
+
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    router.push(`/${location.documentId}`);
+    }
 
   return (
     <div className="border rounded-xl overflow-hidden text-black">
@@ -53,7 +61,10 @@ export function Location({ location }: LocationProps) {
         </div>
         <p className="text-gray-600 text-sm mt-1">{location.description}</p>
 <div className="flex items-center justify-between mt-3">
-    <button className="text-sm font-medium flex items-center">
+    <button 
+      className="text-sm font-medium flex items-center"
+      onClick={handleRedirect}
+      >
     Подробнее
     <ChevronRight className="inline ml-1" size={16} />
   </button>

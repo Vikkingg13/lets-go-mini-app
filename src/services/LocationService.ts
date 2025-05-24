@@ -20,8 +20,8 @@ export class LocationService {
         return array;
     }
 
-    static async fetchLocationById(id: string): Promise<Location> {
-        const response = await fetch(`${process.env.SERVER_URL}/api/locations/${id}`, {
+    static async fetchLocationById(documentId: string): Promise<Location> {
+        const response = await fetch(`${process.env.SERVER_URL}/api/locations/${documentId}?populate=*`, {
             headers: {
                 Authorization: `Bearer ${process.env.API_TOKEN}`,
             },
@@ -29,6 +29,6 @@ export class LocationService {
         if (!response.ok) {
             throw new Error('Failed to fetch location');
         }
-        return response.json();
+        return (await response.json()).data;
     }
 }

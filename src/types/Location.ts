@@ -40,6 +40,7 @@ interface Photo {
 
 export interface Location {
   id: string;
+  documentId: string;
   title: string;
   description: string;
   type: string;
