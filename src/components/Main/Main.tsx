@@ -17,34 +17,16 @@ import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation
 
 
 
-export default function Home() {
+export default function Main({ locations }: { locations: LocationType[] }) {
 
-  const [locations, setLocations] = useState<LocationType[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const t = useTranslations('i18n');
 
   const [activeTab, setActiveTab] = useState("overview")
 
   const [search, setSearch] = useState('');
   const filteredLocations = locations.filter(location =>
-  location.title.toLowerCase().includes(search.toLowerCase())
-);
-
-    useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        setLoading(true)
-        const data = await LocationService.fetchLocations()
-        setLocations(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchLocations()
-  }, [])
+    location.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <Page back={false}>
@@ -80,17 +62,13 @@ export default function Home() {
 
         <div className="flex-1 overflow-auto">
         <div className="p-4 space-y-4">
-          {loading ? (
-            <div className="text-center py-4">Загрузка...</div>
-          ) : error ? (
-            <div className="text-center py-4 text-red-500">{error}</div>
-          ) : (
+
           <List>
             {Array.isArray(filteredLocations) && filteredLocations.map(location => (
               <Location key={location.id} location={location} />
             ))}
           </List>
-          )}
+          
         </div>
       </div>
       <div className="pb-16">
