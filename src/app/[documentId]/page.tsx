@@ -8,8 +8,11 @@ interface LocationPageProps {
   };
 }
 
-export default async function LocationPage({ params }: LocationPageProps) {
-  const { documentId } = params;
+export default async function LocationPage({ params }
+  : {  
+    params: Promise<{ documentId: string }>
+  }) {
+  const documentId = (await params).documentId;
 
   // Загружаем данные о локации по ID
   const location = await LocationService.fetchLocationById(documentId);
