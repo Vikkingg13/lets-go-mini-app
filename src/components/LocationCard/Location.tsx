@@ -11,6 +11,7 @@ interface LocationProps {
 export function Location({ location }: LocationProps) {
 
   const [liked, setLiked] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
   const badgeColors = [
   "bg-orange-100 text-orange-800",
@@ -27,8 +28,11 @@ export function Location({ location }: LocationProps) {
   const router = useRouter();
 
   const handleRedirect = () => {
-    router.push(`/${location.documentId}`);
-    }
+    setIsButtonActive(true);
+    setTimeout(() => {
+      router.push(`/${location.documentId}`);
+    }, 300);
+  }
 
   return (
     <div className="border rounded-xl overflow-hidden text-black">
@@ -60,18 +64,26 @@ export function Location({ location }: LocationProps) {
           </div>
         </div>
         <p className="text-gray-600 text-sm mt-1">{location.description}</p>
-<div className="flex items-center justify-between mt-3">
-    <button 
-      className="text-sm font-medium flex items-center"
-      onClick={handleRedirect}
-      >
-    Подробнее
-    <ChevronRight className="inline ml-1" size={16} />
-  </button>
-  <span className={`${randomColor} px-2 py-0.5 rounded-full text-xs`}>
-    {location.type}
-  </span>
-</div>
+          <div className="flex items-center justify-between mt-3">
+              <button 
+                className={`relative text-sm font-medium flex items-center px-4 py-2 rounded-xl transition-all duration-300
+                  ${isButtonActive ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}
+                  before:absolute before:inset-0 before:rounded-xl before:p-[1px] before:bg-gradient-to-r before:from-blue-500 before:to-purple-500
+                  before:opacity-0 before:transition-opacity before:duration-800
+                  ${isButtonActive ? 'before:opacity-100 before:animate-pulse' : 'hover:before:opacity-30'}
+                  after:absolute after:inset-[1px] after:rounded-xl after:bg-white
+                  group`}
+                onClick={handleRedirect}
+                >
+                <span className="relative z-10 flex items-center">
+                  Подробнее
+                  <ChevronRight className="inline ml-1 transition-transform duration-300 group-hover:translate-x-0.5" size={16} />
+                </span>
+              </button>
+            <span className={`${randomColor} px-2 py-0.5 rounded-full text-xs`}>
+              {location.type}
+            </span>
+          </div>
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 import { Root } from '@/components/Root/Root';
 import { I18nProvider } from '@/core/i18n/provider';
+import LoadScreen from '@/components/LoadScreen';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import 'normalize.css/normalize.css';
@@ -23,7 +25,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <body>
         <I18nProvider>
           <Root>
-            {children}
+            <Suspense fallback={<LoadScreen />}>
+              {children}
+            </Suspense>
           </Root>
         </I18nProvider>
       </body>

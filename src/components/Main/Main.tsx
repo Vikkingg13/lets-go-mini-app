@@ -36,7 +36,7 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
-
+      <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
       {/* Header */}
       <header className="p-4 text-black flex justify-between items-center">
         <h1 className="text-xl font-bold">Исследуй Город</h1>
@@ -65,7 +65,6 @@ export default function Main({ locations }: { locations: LocationType[] }) {
             />
         </div>
       </div>
-
         {/* Горизонтальный список категорий */}
         <div className="px-4 overflow-x-auto whitespace-nowrap">
           {categories.map(category => (
@@ -88,9 +87,10 @@ export default function Main({ locations }: { locations: LocationType[] }) {
             </button>
           ))}
         </div>
+        </div>
 
       {/* Locations */ }
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto pt-40">
         <div className="p-4 space-y-4">
 
           <List>
