@@ -42,8 +42,9 @@ export interface Location {
   id: string;
   documentId: string;
   title: string;
+  summary: string;
   description: string;
   type: string;
-  distance: string;
+  address: string;
   photo: Photo[];
 }

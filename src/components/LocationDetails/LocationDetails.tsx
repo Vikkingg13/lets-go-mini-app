@@ -3,8 +3,12 @@
 import { Location as LocationType } from '@/types/Location';
 import { MapPin, Star, ChevronLeft, ChevronRight } from 'lucide-react'; // Убедитесь, что у вас установлен пакет lucide-react
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { Page } from '../Page';
+
+import { badgeColors } from '@/constants/badgeColors';
+
+import { locationTypeMap } from '@/constants/locationTypes';
 
 interface LocationDetailProps {
   location: LocationType;
@@ -26,9 +30,13 @@ export default function LocationDetails({ location }: LocationDetailProps) {
     );
   };
 
+  const [randomColor] = useState(() =>
+    badgeColors[Math.floor(Math.random() * badgeColors.length)]
+  );
+
   return (
     <Page back={true}>
-    <div className="container mx-auto max-w-md bg-white shadow-lg rounded-lg overflow-hidden my-4">
+    <div className="container mx-auto max-w-md bg-whiterounded-lg overflow-hidden my-4">
       {/* Секция с изображением (карусель) */}
       <div className="relative h-64 bg-gray-200">
         {location.photo && location.photo.length > 0 ? (
@@ -83,12 +91,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
         {/* Название и рейтинг */}
         <div className="flex justify-between items-center mb-2">
           <h1 className="text-xl font-bold text-gray-900">{location.title}</h1>
-          {/* Заглушка для рейтинга, если его нет в данных LocationType */}
-          {/* Если у вас есть поле rating в LocationType, используйте его */}
-          <div className="flex items-center text-gray-700">
-            <Star size={16} className="text-yellow-400 fill-current mr-1" />
-            <span>4.8</span> {/* Замените на location.rating, если доступно */}
-          </div>
+
         </div>
 
         {/* Категории/Теги */}
@@ -96,8 +99,9 @@ export default function LocationDetails({ location }: LocationDetailProps) {
         {/* Ниже пример для отображения типа локации как тега */}
          <div className="flex items-center space-x-2 mb-3">
            {location.type && (
-             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-               {location.type} {/* Замените на location.category или map теги */}
+             <span className={`${randomColor} inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700`}>
+                {locationTypeMap[location.type] || location.type}
+                {/* Замените на location.category или map теги */}
              </span>
            )}
            {/* Добавьте другие теги, если есть */}
@@ -119,15 +123,9 @@ export default function LocationDetails({ location }: LocationDetailProps) {
             <span className="font-semibold">Адрес</span>
           </div>
           <p className="text-gray-600 text-sm ml-6">
-             Центральный Парк, Центр Города {/* Замените на location.address, если доступно */}
+            {location.address} {/* Замените на location.address, если доступно */}
           </p>
-          {location.distance && (
-            <p className="text-gray-600 text-sm ml-6 mt-1">
-              {location.distance} от вашего местоположения
-            </p>
-          )}
         </div>
-
         {/* Здесь можно добавить другие детали, кнопки действий и т.д. */}
       </div>
     </div>

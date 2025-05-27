@@ -31,29 +31,30 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   const [activeCategory, setActiveCategory] = useState('Все');
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['Парки', 'Музеи', 'Кафе', 'Рестораны', 'Активный отдых'];
+  const categories = ['Все', 'Парки', 'Музеи', 'Кафе', 'Рестораны', 'Активный отдых'];
 
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
-      <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
       {/* Header */}
-      <header className="p-4 text-black flex justify-between items-center">
+      <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
+      <header className="p-2 text-black flex justify-between items-center">
         <h1 className="text-xl font-bold">Исследуй Город</h1>
         <div className="flex gap-2">
+        <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
+            <span>Москва</span>
+            <ChevronRight size={16} />
+          </button>
           <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <Globe size={16} />
             <span>RU</span>
           </button>
-          <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
-            <span>Москва</span>
-            <ChevronRight size={16} />
-          </button>
         </div>
       </header>
+      </div>
       
       {/* Search */}
-      <div className="px-4 pb-4 flex gap-2 text-black">
+      <div className="pt-16 px-4 pb-4 flex gap-2 text-black">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
             <input
@@ -87,10 +88,9 @@ export default function Main({ locations }: { locations: LocationType[] }) {
             </button>
           ))}
         </div>
-        </div>
 
       {/* Locations */ }
-        <div className="flex-1 overflow-auto pt-40">
+        <div className="flex-1 overflow-auto">
         <div className="p-4 space-y-4">
 
           <List>

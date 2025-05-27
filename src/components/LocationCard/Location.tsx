@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { locationTypeMap } from '@/constants/locationTypes';
+import { badgeColors } from '@/constants/badgeColors';
+
 interface LocationProps {
   location: LocationType;
 }
@@ -12,14 +15,6 @@ export function Location({ location }: LocationProps) {
 
   const [liked, setLiked] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
-
-  const badgeColors = [
-  "bg-orange-100 text-orange-800",
-  "bg-green-100 text-green-800",
-  "bg-blue-100 text-blue-800",
-  "bg-purple-100 text-purple-800",
-  "bg-pink-100 text-pink-800",
-  ];
 
   const [randomColor] = useState(() =>
     badgeColors[Math.floor(Math.random() * badgeColors.length)]
@@ -63,7 +58,7 @@ export function Location({ location }: LocationProps) {
             </button>
           </div>
         </div>
-        <p className="text-gray-600 text-sm mt-1">{location.description}</p>
+        <p className="text-gray-600 text-sm mt-1">{location.summary}</p>
           <div className="flex items-center justify-between mt-3">
               <button 
                 className={`relative text-sm font-medium flex items-center px-4 py-2 rounded-xl transition-all duration-300
@@ -81,7 +76,7 @@ export function Location({ location }: LocationProps) {
                 </span>
               </button>
             <span className={`${randomColor} px-2 py-0.5 rounded-full text-xs`}>
-              {location.type}
+            {locationTypeMap[location.type] || location.type}
             </span>
           </div>
       </div>
