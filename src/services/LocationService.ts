@@ -13,9 +13,6 @@ export class LocationService {
         }
         
         const array = (await response.json()).data;
-        array.forEach((location: Location) => {
-            console.log(location);
-        });
 
         return array;
     }

@@ -1,6 +1,13 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+	safelist: [
+		'bg-orange-100', 'text-orange-800',
+		'bg-green-100', 'text-green-800',
+		'bg-blue-100', 'text-blue-800',
+		'bg-purple-100', 'text-purple-800',
+		'bg-pink-100', 'text-pink-800',
+	  ],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",

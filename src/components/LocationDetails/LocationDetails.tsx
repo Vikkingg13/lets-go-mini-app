@@ -98,12 +98,11 @@ export default function LocationDetails({ location }: LocationDetailProps) {
         {/* Если у вас есть массив тегов или категорий в LocationType, отобразите их */}
         {/* Ниже пример для отображения типа локации как тега */}
          <div className="flex items-center space-x-2 mb-3">
-           {location.type && (
-             <span className={`${randomColor} inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700`}>
+             <span className="px-2 py-0.5 rounded-full text-xs border border-gray-300 hover:border-gray-400 transition-colors">
                 {locationTypeMap[location.type] || location.type}
                 {/* Замените на location.category или map теги */}
              </span>
-           )}
+
            {/* Добавьте другие теги, если есть */}
            {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
              Москва // Пример дополнительного тега
