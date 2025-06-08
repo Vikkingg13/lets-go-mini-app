@@ -47,4 +47,8 @@ export interface Location {
   type: string;
   address: string;
   photo: Photo[];
+  pros?: string[];
+  cons?: string[];
+  work_time: string;
+  link: string
 }

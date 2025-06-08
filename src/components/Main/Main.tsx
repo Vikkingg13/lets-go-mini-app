@@ -11,7 +11,8 @@ import { ChevronRight, Globe, MapPin, Search, SlidersHorizontal, Star } from "lu
 import { List } from '@telegram-apps/telegram-ui';
 
 import { Location as LocationType } from '@/types/Location';
-import { Location } from '@/components/LocationCard/Location';
+import { locationTypeMap } from '@/constants/locationTypes';
+import { Location } from '@/components/Location/Location';
 import { LocationService } from '@/services/LocationService';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
 
@@ -24,14 +25,18 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   const [activeTab, setActiveTab] = useState("overview")
 
   const [search, setSearch] = useState('');
-  const filteredLocations = locations.filter(location =>
-    location.title.toLowerCase().includes(search.toLowerCase())
-  );
 
-  const [activeCategory, setActiveCategory] = useState('Все');
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  // Изменим фильтрацию, добавив проверку категории
+const filteredLocations = locations.filter(location => {
+  const matchesSearch = location.title.toLowerCase().includes(search.toLowerCase());
+  const matchesCategory =  'all' === activeCategory || location.type === activeCategory;
+  return matchesSearch && matchesCategory;
+});
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['Все', 'Парки', 'Музеи', 'Кафе', 'Рестораны', 'Активный отдых'];
+  const categories = ['all', 'сulture', 'food', 'nature', 'landmark', 'activity'];
 
   return (
     <Page back={false}>
@@ -84,7 +89,7 @@ export default function Main({ locations }: { locations: LocationType[] }) {
                   : 'border-gray-300 text-gray-700'} // Неактивный стиль
               `}
             >
-              {category}
+              {locationTypeMap[category]}
             </button>
           ))}
         </div>

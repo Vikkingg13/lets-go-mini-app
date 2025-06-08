@@ -41,6 +41,7 @@ export function Location({ location }: LocationProps) {
 
   return (
     <div className="border rounded-xl overflow-hidden text-black">
+      
       <div className="relative h-40 bg-gray-200">
         <button className="absolute right-2 top-1/2 z-10 transform -translate-y-1/2 bg-white/60 p-1 rounded-full transition-all duration-200 shadow hover:shadow-lg active:scale-90 active:translate-x-1">
           <ChevronRight size={20} />
@@ -66,8 +67,8 @@ export function Location({ location }: LocationProps) {
         <button className="absolute z-10 left-2 top-1/2 transform -translate-y-1/2 bg-white/60 p-1 rounded-full transition-all duration-200 shadow hover:shadow-lg active:scale-90 active:-translate-x-1">
           <ChevronRight className="rotate-180" size={20} />
         </button>
-
       </div>
+
       <div className="p-4">
         <div className="flex justify-between items-start">
           <h2 className="text-lg font-bold">{location.title}</h2>
