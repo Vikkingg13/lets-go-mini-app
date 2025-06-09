@@ -13,7 +13,6 @@ import { List } from '@telegram-apps/telegram-ui';
 import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
-import { LocationService } from '@/services/LocationService';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
 
 
