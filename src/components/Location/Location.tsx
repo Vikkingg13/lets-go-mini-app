@@ -35,6 +35,8 @@ export function Location({ location }: LocationProps) {
 
   const router = useRouter();
 
+  const [isFavorite, setIsFavorite] = useState(false)
+
   const handleRedirect = () => {
     router.push(`/${location.documentId}`);
   }
@@ -43,30 +45,34 @@ export function Location({ location }: LocationProps) {
     <div className="border rounded-xl overflow-hidden text-black">
       
       <div className="relative h-40 bg-gray-200">
+      {location.photo && location.photo.length > 1 &&
         <button className="absolute right-2 top-1/2 z-10 transform -translate-y-1/2 bg-white/60 p-1 rounded-full transition-all duration-200 shadow hover:shadow-lg active:scale-90 active:translate-x-1">
           <ChevronRight size={20} />
         </button>
-        {location.photo && location.photo[0]?.formats?.medium?.url ? (
+      }
+      {location.photo && location.photo[0]?.formats?.medium?.url ? (
+        <>
           <Image src={location.photo[0].formats.medium.url} alt={location.title} fill className="object-cover" />
-        ) : (
-          <div className={`w-full h-full bg-gradient-to-br ${randomGradient} backdrop-blur-3xl`}>
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
-          </div>
-        )}
-        <button
-          type="button"
-          onClick={() => setLiked((prev) => !prev)}
-          className="absolute z-10 right-2 top-2 p-1.5 rounded-full transition-all duration-200 hover:scale-110 active:scale-90"
-        >
-          <Heart
-            className={liked ? "text-red-500 fill-current drop-shadow-lg" : "text-red-500/80 drop-shadow-lg"}
-            fill={liked ? "currentColor" : "none"}
-            size={20}
-          />
-        </button>
+          <button
+              onClick={() => setIsFavorite(!isFavorite)}
+              className={`absolute w-8 h-8 z-10 rounded-full right-2 top-1 flex items-center justify-center transition-colors ${
+                isFavorite ? "bg-red-500 text-white" : "bg-white/80 text-gray-600 hover:bg-white"
+              }`}>
+              <Heart className={`w-4 h-4 ${isFavorite ? "fill-current" : ""}`} />
+          </button>
+        </>
+        
+      ) : (
+        <div className={`w-full h-full bg-gradient-to-br ${randomGradient} backdrop-blur-3xl`}>
+          <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
+        </div>
+      )}
+        
+        {location.photo && location.photo.length > 1 &&
         <button className="absolute z-10 left-2 top-1/2 transform -translate-y-1/2 bg-white/60 p-1 rounded-full transition-all duration-200 shadow hover:shadow-lg active:scale-90 active:-translate-x-1">
           <ChevronRight className="rotate-180" size={20} />
         </button>
+        }
       </div>
 
       <div className="p-4">

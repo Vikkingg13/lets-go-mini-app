@@ -20,10 +20,7 @@ interface Photo {
   width: number;
   height: number;
   formats: {
-    large: ImageFormat;
-    small: ImageFormat;
     medium: ImageFormat;
-    thumbnail: ImageFormat;
   };
   hash: string;
   ext: string;

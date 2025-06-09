@@ -33,9 +33,6 @@ export default function LocationDetails({ location }: LocationDetailProps) {
     );
   };
 
-  const [randomColor] = useState(() =>
-    badgeColors[Math.floor(Math.random() * badgeColors.length)]
-  );
 
   return (
     <Page back={true}>
@@ -70,7 +67,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
             </button>
           </div>
             {/* Кнопки навигации по изображению */}
-            {location.photo.length >= 1 && (
+            {location.photo.length > 1 && (
               <>
                 <button
                   className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md z-10"

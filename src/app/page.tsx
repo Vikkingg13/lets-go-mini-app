@@ -1,9 +1,9 @@
-import { LocationService } from "@/services/LocationService";
 import Main from "@/components/Main/Main"
+import { fetchLocations } from "@/services/LocationService";
 
 export default async function Home() {
 
-  const data = await LocationService.fetchLocations();
+  const data = await fetchLocations();
 
   return (
     <div>
