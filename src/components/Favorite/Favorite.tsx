@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import { Page } from '@/components/Page';
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
 
 import { ChevronRight, Globe, MapPin, Search, SlidersHorizontal, Star } from "lucide-react"
 import { List } from '@telegram-apps/telegram-ui';
@@ -14,7 +16,8 @@ import { Location } from '@/components/Location/Location';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
 
 
-export default function Main({ locations }: { locations: LocationType[] }) {
+
+export default function Favorite({ locations }: { locations: LocationType[] }) {
 
   const t = useTranslations('i18n');
 
@@ -23,7 +26,6 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   const [search, setSearch] = useState('');
 
   const [activeCategory, setActiveCategory] = useState('all');
-
 
   // Изменим фильтрацию, добавив проверку категории
 const filteredLocations = locations.filter(location => {
@@ -41,13 +43,13 @@ const filteredLocations = locations.filter(location => {
       {/* Header */}
       <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
       <header className="p-2 text-black flex justify-between items-center">
-        <h1 className="text-xl font-bold">Исследуй Город</h1>
+        <h1 className="text-xl font-bold">Избранное</h1>
         <div className="flex gap-2">
         <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <span>Москва</span>
             <ChevronRight size={16} />
-          </button>
-          <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
+        </button>
+        <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <Globe size={16} />
             <span>RU</span>
           </button>

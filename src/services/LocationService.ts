@@ -1,7 +1,7 @@
 import { Location } from '../types/Location';
 
 export async function fetchLocations() {
-        const response = await fetch(`${process.env.SERVER_URL}/api/locations?populate=photo&fields[0]=title&fields[1]=summary&fields[2]=type&fields[3]=city`, {
+        const response = await fetch(`${process.env.SERVER_URL}/api/locations?populate=photo&field[0]=documnentId&fields[1]=title&fields[2]=summary&fields[3]=type&fields[4]=city`, {
             headers: {
                 Authorization: `Bearer ${process.env.API_TOKEN}`,
             },
@@ -16,6 +16,7 @@ export async function fetchLocations() {
 
         return array;
     }
+
 
     export async function fetchLocationById(documentId: string) {
         const response = await fetch(`${process.env.SERVER_URL}/api/locations/${documentId}?populate=photo&fields[0]=title&fields[1]=description&fields[2]=type&fields[3]=city&fields[4]=pros&fields[5]=cons&fields[6]=work_time&fields[7]=link&fields[8]=address`, {

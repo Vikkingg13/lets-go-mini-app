@@ -51,6 +51,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.0
+      '@yandex/ymaps3-types':
+        specifier: ^0.0.17
+        version: 0.0.17
       eslint:
         specifier: ^8
         version: 8.57.0
@@ -643,6 +646,9 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
+
+  '@yandex/ymaps3-types@0.0.17':
+    resolution: {integrity: sha512-vGUbyxn1X4F68UeA/MKwh7mKb9DrjMInXKC0Mip1gw+Ovm9bRbRuwcUNJqOMv3/XLF8OzGTUiS4IvAduUpv4Jw==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2705,6 +2711,11 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
+
+  '@yandex/ymaps3-types@0.0.17':
+    dependencies:
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
 
   acorn-jsx@5.3.2(acorn@8.12.0):
     dependencies:
