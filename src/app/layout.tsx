@@ -11,7 +11,6 @@ import '@telegram-apps/telegram-ui/dist/styles.css';
 import 'normalize.css/normalize.css';
 import './_assets/globals.css';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Your Application Title Goes Here',

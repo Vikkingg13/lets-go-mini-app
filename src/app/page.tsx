@@ -7,7 +7,8 @@ export default async function Home() {
 
   return (
     <div>
-      <Main locations={data}
+      <Main
+        locations={data}
       />
       </div>
   )

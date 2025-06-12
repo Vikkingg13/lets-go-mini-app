@@ -3,10 +3,9 @@ import { ChevronRight, Heart, MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useLaunchParams } from '@telegram-apps/sdk-react';
 
 import { locationTypeMap } from '@/constants/locationTypes';
-import { connectFavoriteLocationToUser } from '@/services/UserService';
+import { badgeColors } from '@/constants/badgeColors';
 
 interface LocationProps {
   location: LocationType;
@@ -14,23 +13,32 @@ interface LocationProps {
 
 export function Location({ location }: LocationProps) {
 
-  const launchParams = useLaunchParams();
-  const userId = launchParams.tgWebAppData?.user?.id ?? 0;
+  const [liked, setLiked] = useState(false);
 
 
-  const [isFavorite, setIsFavorite] = useState(false)
+  const gradients = [
+    'from-violet-200 via-fuchsia-200 to-pink-200',
+    'from-cyan-200 via-sky-200 to-blue-200',
+    'from-amber-200 via-orange-200 to-red-200',
+    'from-lime-200 via-emerald-200 to-teal-200',
+    'from-rose-200 via-pink-200 to-fuchsia-200',
+    'from-blue-200 via-indigo-200 to-violet-200',
+    'from-green-200 via-emerald-200 to-teal-200',
+    'from-orange-200 via-amber-200 to-yellow-200',
+    'from-purple-200 via-violet-200 to-indigo-200',
+    'from-pink-200 via-rose-200 to-red-200'
+  ];
+
+  const [randomGradient] = useState(() =>
+    gradients[Math.floor(Math.random() * gradients.length)]
+  );
 
   const router = useRouter();
 
+  const [isFavorite, setIsFavorite] = useState(false)
+
   const handleRedirect = () => {
     router.push(`/${location.documentId}`);
-  }
-
-  const handleFavorite = () => {
-    if (!isFavorite) {
-      connectFavoriteLocationToUser(userId, location.documentId)
-    }
-    setIsFavorite(!isFavorite)
   }
 
   return (
@@ -46,7 +54,7 @@ export function Location({ location }: LocationProps) {
         <>
           <Image src={location.photo[0].formats.medium.url} alt={location.title} fill className="object-cover" />
           <button
-              onClick={handleFavorite}
+              onClick={() => setIsFavorite(!isFavorite)}
               className={`absolute w-8 h-8 z-10 rounded-full right-2 top-1 flex items-center justify-center transition-colors ${
                 isFavorite ? "bg-red-500 text-white" : "bg-white/80 text-gray-600 hover:bg-white"
               }`}>
@@ -55,7 +63,7 @@ export function Location({ location }: LocationProps) {
         </>
         
       ) : (
-        <div className={`w-full h-full bg-gradient-to-br backdrop-blur-3xl`}>
+        <div className={`w-full h-full bg-gradient-to-br ${randomGradient} backdrop-blur-3xl`}>
           <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
         </div>
       )}

@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import { Page } from '@/components/Page';
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
 
 import { ChevronRight, Globe, MapPin, Search, SlidersHorizontal, Star } from "lucide-react"
 import { List } from '@telegram-apps/telegram-ui';
@@ -12,6 +14,7 @@ import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
+
 
 
 export default function Main({ locations }: { locations: LocationType[] }) {
@@ -23,7 +26,6 @@ export default function Main({ locations }: { locations: LocationType[] }) {
   const [search, setSearch] = useState('');
 
   const [activeCategory, setActiveCategory] = useState('all');
-
 
   // Изменим фильтрацию, добавив проверку категории
 const filteredLocations = locations.filter(location => {

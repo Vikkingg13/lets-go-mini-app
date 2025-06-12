@@ -17,11 +17,9 @@
         "name": "next"
       }
     ],
-    "typeRoots": ["./node_modules/@types", "./node_modules/@yandex/ymaps3-types"],
     "paths": {
       "@/*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
+      "@public/*": ["./public/*"]
     },
     "target": "ES2017"
   },
