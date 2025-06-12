@@ -37,7 +37,7 @@ export async function connectFavoriteLocationToUser(userId: number, locationId: 
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
             },
           method: 'put',
-          body: {
+          body: JSON.stringify({
             data: {
                 favoriteLocations: {
                 connect: [
@@ -45,7 +45,7 @@ export async function connectFavoriteLocationToUser(userId: number, locationId: 
                 ]
               }
             }
-          }
+          })
         }
       );
     
