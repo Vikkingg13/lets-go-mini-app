@@ -28,12 +28,13 @@ export async function fetchUserByUserId(userId: number) {
 
 export async function connectFavoriteLocationToUser(userId: number, locationId: string) {
     const documentId = await fetchUserByUserId(userId);
-
+    
     const response = await fetch
         (`${process.env.NEXT_PUBLIC_SERVER_URL}/api/telegram-users/${documentId}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
             },
           method: 'put',
           body: JSON.stringify({
