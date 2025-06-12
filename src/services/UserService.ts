@@ -33,7 +33,6 @@ export async function connectFavoriteLocationToUser(userId: number, locationId: 
         (`${process.env.NEXT_PUBLIC_SERVER_URL}/api/telegram-users/${documentId}`,
         {
           headers: {
-            ContentType: "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
             },
           method: 'put',
