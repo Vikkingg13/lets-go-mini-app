@@ -63,7 +63,7 @@ export async function mockEnv() {
             ['auth_date', ((new Date().getTime() / 1000) | 0).toString()],
             ['hash', 'some-hash'],
             ['signature', 'some-signature'],
-            ['user', JSON.stringify({ id: 1, first_name: 'Vladislav' })],
+            ['user', JSON.stringify({ id: 5724967717, first_name: 'Vladislav' })],
           ]).toString(),
         ],
         ['tgWebAppVersion', '8.4'],

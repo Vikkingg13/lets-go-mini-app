@@ -2,7 +2,9 @@
 
 import { InlineButtons } from "@telegram-apps/telegram-ui";
 import { InlineButtonsItem } from '@telegram-apps/telegram-ui/dist/components/Blocks/InlineButtons/components/InlineButtonsItem/InlineButtonsItem';
-import { MapPin, Search } from "lucide-react";
+import { Map, MapPin, Search } from "lucide-react";
+import { useRouter } from 'next/navigation';
+
 
 interface BottomNavigationProps {
   activeTab: string;
@@ -10,6 +12,13 @@ interface BottomNavigationProps {
 }
 
 export function BottomNavigation({ activeTab, setActiveTab }: BottomNavigationProps) {
+
+  const router = useRouter();
+
+  const goToMap = () => {
+    router.push("/map");
+  }
+
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t z-50 ">
       <InlineButtons mode="plain" className="grid grid-cols-3 text-xs">
@@ -18,14 +27,14 @@ export function BottomNavigation({ activeTab, setActiveTab }: BottomNavigationPr
           onClick={() => setActiveTab("overview")}
           className={`flex flex-col items-center py-3 ${activeTab === "overview" ? "text-black" : "text-gray-500"}`}
         >
-          <MapPin className={activeTab === "overview" ? "fill-black" : ""} size={20} />
+          <Search className={activeTab === "overview" ? "fill-black" : ""} size={20} />
         </InlineButtonsItem>
         <InlineButtonsItem
-          text="События"
-          onClick={() => setActiveTab("search")}
+          text="Карта"
+          onClick={goToMap}
           className={`flex flex-col items-center py-3 ${activeTab === "search" ? "text-black" : "text-gray-500"}`}
         >
-          <Search className={activeTab === "search" ? "fill-black" : ""} size={20} />
+          <Map className={activeTab === "search" ? "fill-black" : ""} size={20} />
         </InlineButtonsItem>
         <InlineButtonsItem
           text="Избранное"

@@ -23,6 +23,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@yandex/ymaps3-types": "^0.0.17",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

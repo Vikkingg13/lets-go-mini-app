@@ -1,13 +1,13 @@
-import Main from "@/components/Main/Main"
+import Favorite from "@/components/Favorite/Favorite"
 import { fetchLocations } from "@/services/LocationService";
 
-export default async function Home() {
+export default async function Page() {
 
   const data = await fetchLocations();
 
   return (
     <div>
-      <Main locations={data}
+      <Favorite locations={data}
       />
       </div>
   )
