@@ -14,6 +14,8 @@ import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
 import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
+import { fetchUserFavoriteLocations } from '@/services/UserService';
+import { useLaunchParams } from '@telegram-apps/sdk-react';
 
 
 
@@ -21,21 +23,21 @@ export default function Favorite({ locations }: { locations: LocationType[] }) {
 
   const t = useTranslations('i18n');
 
-  const [activeTab, setActiveTab] = useState("overview")
-
   const [search, setSearch] = useState('');
 
   const [activeCategory, setActiveCategory] = useState('all');
 
+
   // Изменим фильтрацию, добавив проверку категории
-const filteredLocations = locations.filter(location => {
-  const matchesSearch = location.title.toLowerCase().includes(search.toLowerCase());
-  const matchesCategory =  'all' === activeCategory || location.type === activeCategory;
-  return matchesSearch && matchesCategory;
+  const filteredLocations = locations.filter(location => {
+    const matchesSearch = location.title.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory =  'all' === activeCategory || location.type === activeCategory;
+    return matchesSearch && matchesCategory;
 });
 
   // Пример списка категорий (замените на свои фактические категории)
   const categories = ['all', 'сulture', 'food', 'nature', 'landmark', 'activity'];
+
 
   return (
     <Page back={false}>
@@ -104,9 +106,6 @@ const filteredLocations = locations.filter(location => {
           </List>
           
         </div>
-      </div>
-      <div className="pb-16">
-        <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       </div>
     </Page>

@@ -12,12 +12,14 @@ import { AppRoot } from '@telegram-apps/telegram-ui';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorPage } from '@/components/ErrorPage';
 import { useDidMount } from '@/hooks/useDidMount';
+import { useUserInit } from '@/hooks/useUserInit';
 import { setLocale } from '@/core/i18n/locale';
 
 import './styles.css';
 
 function RootInner({ children }: PropsWithChildren) {
   const lp = useLaunchParams();
+  useUserInit();
 
   const isDark = useSignal(miniApp.isDark);
   const initDataUser = useSignal(initData.user);

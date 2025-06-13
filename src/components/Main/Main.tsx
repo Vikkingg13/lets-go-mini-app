@@ -18,8 +18,6 @@ export default function Main({ locations }: { locations: LocationType[] }) {
 
   const t = useTranslations('i18n');
 
-  const [activeTab, setActiveTab] = useState("overview")
-
   const [search, setSearch] = useState('');
 
   const [activeCategory, setActiveCategory] = useState('all');
@@ -104,7 +102,7 @@ const filteredLocations = locations.filter(location => {
         </div>
       </div>
       <div className="pb-16">
-        <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+        <BottomNavigation/>
       </div>
       </div>
     </Page>

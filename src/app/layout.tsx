@@ -28,6 +28,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           <Root>
             <Suspense fallback={<LoadScreen />}>
               {children}
+              <BottomNavigation />
             </Suspense>
           </Root>
         </I18nProvider>

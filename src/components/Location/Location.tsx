@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useLaunchParams } from '@telegram-apps/sdk-react';
 
 import { locationTypeMap } from '@/constants/locationTypes';
-import { connectFavoriteLocationToUser } from '@/services/UserService';
+import { connectFavoriteLocationToUser, disconnectFavoriteLocationFromUser } from '@/services/UserService';
 
 interface LocationProps {
   location: LocationType;
@@ -16,7 +16,6 @@ export function Location({ location }: LocationProps) {
 
   const launchParams = useLaunchParams();
   const userId = launchParams.tgWebAppData?.user?.id ?? 0;
-
 
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -29,6 +28,8 @@ export function Location({ location }: LocationProps) {
   const handleFavorite = () => {
     if (!isFavorite) {
       connectFavoriteLocationToUser(userId, location.documentId)
+    } else {
+      disconnectFavoriteLocationFromUser(userId, location.documentId)
     }
     setIsFavorite(!isFavorite)
   }
