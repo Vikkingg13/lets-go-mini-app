@@ -1,31 +1,34 @@
 'use client';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {ReactifiedModule} from '@yandex/ymaps3-types/reactify/reactify';
 
-type ReactifiedApi = ReactifiedModule<typeof ymaps3>;
+import {
+  YMap
+} from "@yandex/ymaps3-types/imperative/YMap";
+import React, { useRef } from "react";
+import { useMap } from "@/providers/MapProvider";
 
-const Map = () => {
-  const [reactifiedApi, setReactifiedApi] = React.useState<ReactifiedApi>();
 
-  React.useEffect(() => {
-    Promise.all([ymaps3.import('@yandex/ymaps3-reactify'), ymaps3.ready]).then(([{reactify}]) =>
-      setReactifiedApi(reactify.bindTo(React, ReactDOM).module(ymaps3))
-    );
-  }, []);
+export const Map = () => {
+  const mapRef = useRef<(YMap & { container: HTMLElement }) | null>(null);
 
-  if (!reactifiedApi) {
-    return null;
+
+  const { reactifyApi } = useMap();
+
+
+  if (!reactifyApi) {
+    return <div>Загрузка карты...</div>; // или другой компонент загрузки
   }
 
-  const {YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer} = reactifiedApi;
+  const {
+    YMap,
+    YMapDefaultSchemeLayer,
+    YMapDefaultFeaturesLayer,
+  } = reactifyApi;
+  
 
   return (
-    <YMap location={{center: [37.588144, 55.733842], zoom: 9}}>
+    <YMap margin={[20, 20, 20, 20]}  location={{ center: [55.751574, 37.573856] }}  ref={mapRef}>
       <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
     </YMap>
   );
 };
-
-export default Map;
