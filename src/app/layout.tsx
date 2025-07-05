@@ -21,6 +21,8 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
 
+  const apiUrl = `${process.env.MAP_API_URL}`;
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>

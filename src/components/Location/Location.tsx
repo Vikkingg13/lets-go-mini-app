@@ -22,7 +22,7 @@ export function Location({ location }: LocationProps) {
   const router = useRouter();
 
   const handleRedirect = () => {
-    router.push(`/${location.documentId}`);
+    router.push(`/location/${location.documentId}`);
   }
 
   const handleFavorite = () => {

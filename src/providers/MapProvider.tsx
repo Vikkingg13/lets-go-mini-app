@@ -29,18 +29,24 @@ export const MapProvider: React.FC<{
     <MountedMapsContext.Provider value={contextValue}>
       <Script
         src={props.apiUrl}
-        onLoad={async () => {
-          try {
-            const [ymaps3React] = await Promise.all([
-              ymaps3.import("@yandex/ymaps3-reactify"),
-              ymaps3.ready,
-            ]);
-            const reactify = ymaps3React.reactify.bindTo(React, ReactDOM);
-            setReactifyApi(reactify.module(ymaps3));
-          } catch (error) {
-            console.error('Ошибка загрузки Яндекс Карт:', error);
-          }
-        }}
+        strategy="beforeInteractive"
+// ... existing code ...
+onLoad={async () => {
+    try {
+      // Получаем ymaps3 из глобального объекта window
+      const ymaps3 = (window as any).ymaps3;
+      
+      const [ymaps3React] = await Promise.all([
+        ymaps3.import("@yandex/ymaps3-reactify"),
+        ymaps3.ready,
+      ]);
+      const reactify = ymaps3React.reactify.bindTo(React, ReactDOM);
+      setReactifyApi(reactify.module(ymaps3));
+    } catch (error) {
+      console.error('Ошибка загрузки Яндекс Карт:', error);
+    }
+  }}
+// ... existing code ...
         onError={(error) => {
           console.error('Ошибка загрузки скрипта:', error);
         }}
