@@ -44,9 +44,9 @@ export function BottomNavigation() {
         <InlineButtonsItem
           text="Карта"
           onClick={() => handleTabChange('map')}
-          className={`flex flex-col items-center py-3 ${activeTab === "search" ? "text-black" : "text-gray-500"}`}
+          className={`flex flex-col items-center py-3 ${activeTab === "map" ? "text-black" : "text-gray-500"}`}
         >
-          <Map className={activeTab === "search" ? "fill-black" : ""} size={20} />
+          <Map className={activeTab === "map" ? "fill-black" : ""} size={20} />
         </InlineButtonsItem>
 
         <InlineButtonsItem
