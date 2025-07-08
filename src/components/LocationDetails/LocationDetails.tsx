@@ -36,7 +36,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
 
   return (
     <Page back={true}>
-    <div className="container mx-auto max-w-md bg-whiterounded-lg overflow-hidden mb-4">
+    <div className="container pb-16 mx-auto max-w-md bg-whiterounded-lg overflow-hidden mb-4">
       {/* Секция с изображением (карусель) */}
       <div className="relative h-64 bg-gray-200">
         {location.photo && location.photo.length > 0 ? (

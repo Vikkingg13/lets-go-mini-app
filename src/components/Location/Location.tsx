@@ -10,9 +10,10 @@ import { connectFavoriteLocationToUser, disconnectFavoriteLocationFromUser } fro
 
 interface LocationProps {
   location: LocationType;
+  disableFavorite?: boolean;
 }
 
-export function Location({ location }: LocationProps) {
+export function Location({ location, disableFavorite = false }: LocationProps) {
 
   const launchParams = useLaunchParams();
   const userId = launchParams.tgWebAppData?.user?.id ?? 0;
@@ -46,6 +47,7 @@ export function Location({ location }: LocationProps) {
       {location.photo && location.photo[0]?.formats?.medium?.url ? (
         <>
           <Image src={location.photo[0].formats.medium.url} alt={location.title} fill className="object-cover" />
+          {!disableFavorite && (
           <button
               onClick={handleFavorite}
               className={`absolute w-8 h-8 z-10 rounded-full right-2 top-1 flex items-center justify-center transition-colors ${
@@ -53,6 +55,7 @@ export function Location({ location }: LocationProps) {
               }`}>
               <Heart className={`w-4 h-4 ${isFavorite ? "fill-current" : ""}`} />
           </button>
+          )}
         </>
         
       ) : (

@@ -13,30 +13,12 @@ import { List } from '@telegram-apps/telegram-ui';
 import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
-import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
-import { fetchUserFavoriteLocations } from '@/services/UserService';
-import { useLaunchParams } from '@telegram-apps/sdk-react';
 
 
 
 export default function Favorite({ locations }: { locations: LocationType[] }) {
 
   const t = useTranslations('i18n');
-
-  const [search, setSearch] = useState('');
-
-  const [activeCategory, setActiveCategory] = useState('all');
-
-
-  // Изменим фильтрацию, добавив проверку категории
-  const filteredLocations = locations.filter(location => {
-    const matchesSearch = location.title.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory =  'all' === activeCategory || location.type === activeCategory;
-    return matchesSearch && matchesCategory;
-});
-
-  // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['all', 'сulture', 'food', 'nature', 'landmark', 'activity'];
 
 
   return (
@@ -59,54 +41,17 @@ export default function Favorite({ locations }: { locations: LocationType[] }) {
       </header>
       </div>
       
-      {/* Search */}
-      <div className="pt-16 px-4 pb-4 flex gap-2 text-black">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-            <input
-              type="text"
-              placeholder="Поиск мест..."
-              className="w-full pl-10 pr-3 py-3 border rounded-xl text-sm"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-        </div>
-      </div>
-        {/* Горизонтальный список категорий */}
-        <div className="px-4 overflow-x-auto whitespace-nowrap">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`
-                inline-block // Позволяет кнопкам быть в одной строке и иметь отступы
-                px-2 py-1    // Внутренние отступы
-                border       // Граница
-                rounded-full // Полностью скругленные углы
-                text-xs      // Маленький размер текста
-                mr-2         // Отступ справа между кнопками
-                ${activeCategory === category
-                  ? 'bg-black text-white' // Активный стиль
-                  : 'border-gray-300 text-gray-700'} // Неактивный стиль
-              `}
-            >
-              {locationTypeMap[category]}
-            </button>
-          ))}
-        </div>
 
       {/* Locations */ }
         <div className="flex-1 overflow-auto">
-        <div className="p-4 space-y-4">
-
-          <List>
-            {Array.isArray(filteredLocations) && filteredLocations.map(location => (
-              <Location key={location.id} location={location} />
-            ))}
-          </List>
-          
+          <div className="pt-16 p-4 space-y-4">
+            <List>
+              {Array.isArray(locations) && locations.map(location => (
+                <Location key={location.id} location={location} disableFavorite={true} />
+              ))}
+            </List>
+          </div>
         </div>
-      </div>
       </div>
     </Page>
   );
