@@ -39,7 +39,7 @@ const filteredLocations = locations.filter(location => {
       {/* Header */}
       <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
       <header className="p-2 text-black flex justify-between items-center">
-        <h1 className="text-xl font-bold">Исследуй Город</h1>
+        <h1 className="text-xl font-bold">Локации</h1>
         <div className="flex gap-2">
         <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <span>Москва</span>
