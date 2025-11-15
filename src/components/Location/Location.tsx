@@ -71,30 +71,15 @@ export function Location({ location, disableFavorite = false }: LocationProps) {
         }
       </div>
 
-      <div className="p-4">
-        <div className="flex justify-between items-start">
-          <h2 className="text-lg font-bold">{location.title}</h2>
-        </div>
-        <p className="text-gray-600 text-sm mt-1">{location.summary}</p>
-          <div className="flex items-center justify-between mt-3">
-              <button 
-                className={`relative text-sm font-medium flex items-center px-4 py-2 rounded-xl transition-all duration-300
-                hover:scale-105 active:scale-95
-                hover:shadow-lg active:shadow-inner
-                hover:bg-gray-50 active:bg-gray-100
-                group`}
-                onClick={handleRedirect}
-                >
-                <span className="relative z-10 flex items-center">
-                  Подробнее
-                  <ChevronRight className="inline ml-1 transition-transform duration-300 group-hover:translate-x-0.5" size={16} />
-                </span>
-              </button>
-            <span className={`px-2 py-0.5 rounded-full text-xs border border-gray-300 hover:border-gray-400 transition-colors`}>
-            {locationTypeMap[location.type] || location.type}
-            </span>
-          </div>
+      <div className="p-4 space-y-2 cursor-pointer" onClick={handleRedirect}>
+      <div className="flex items-center gap-2">
+        <h2 className="text-lg font-bold flex-1">{location.title}</h2>
+        <span className="px-3 py-0 rounded-full text-[11px] font-medium bg-gray-50 border border-gray-200 text-gray-600">
+          {locationTypeMap[location.type] || location.type}
+        </span>
       </div>
+      <p className="text-gray-600 text-sm">{location.summary}</p>
+    </div>
     </div>
   );
 }

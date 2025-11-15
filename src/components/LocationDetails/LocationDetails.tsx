@@ -47,14 +47,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
               fill
               className="object-cover"
             />
-            <button
-              onClick={() => setIsFavorite(!isFavorite)}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-              isFavorite ? "bg-red-500 text-white" : "bg-white/80 text-gray-600 hover:bg-white"
-            }`}
-          >
-            <Heart className={`w-4 h-4 ${isFavorite ? "fill-current" : ""}`} />
-          </button>
+
 
           <div className="absolute top-4 right-4 flex gap-2">   
             <button
@@ -132,41 +125,6 @@ export default function LocationDetails({ location }: LocationDetailProps) {
 
         {/* Описание */}
         <p className="text-gray-600 text-sm mb-4">{location.description}</p>
-
-                {/* Pros and Cons section */}
-                <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {/* Pros */}
-          <div className="bg-green-50 rounded-lg p-4 border border-green-100">
-            <h3 className="text-green-800 font-medium text-sm mb-3 flex items-center">
-              <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
-              Плюсы
-            </h3>
-            <ul className="space-y-2">
-              {location.pros?.map((pro, index) => (
-                <li key={index} className="text-xs text-green-800 flex items-start">
-                  <CheckCircle className="w-3 h-3 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                  <span>{pro}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Cons */}
-          <div className="bg-red-50 rounded-lg p-4 border border-red-100">
-            <h3 className="text-red-800 font-medium text-sm mb-3 flex items-center">
-              <XCircle className="w-4 h-4 mr-2 text-red-600" />
-              Минусы
-            </h3>
-            <ul className="space-y-2">
-              {location.cons?.map((con, index) => (
-                <li key={index} className="text-xs text-red-800 flex items-start">
-                  <XCircle className="w-3 h-3 text-red-600 mr-2 mt-0.5 flex-shrink-0" />
-                  <span>{con}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
         
         <div>
           <div className="flex items-center text-gray-700">

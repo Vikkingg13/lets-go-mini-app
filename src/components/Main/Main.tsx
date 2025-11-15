@@ -31,13 +31,14 @@ const filteredLocations = locations.filter(location => {
 });
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['all', 'сulture', 'food', 'nature', 'landmark', 'activity'];
+  const categories = ['all', 'eat', 'chill', 'discover', 'have_fun'];
 
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
       {/* Header */}
       <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
+      <div className="max-w-md mx-auto px-4">
       <header className="p-2 text-black flex justify-between items-center">
         <h1 className="text-xl font-bold">Локации</h1>
         <div className="flex gap-2">
@@ -51,6 +52,7 @@ const filteredLocations = locations.filter(location => {
           </button>
         </div>
       </header>
+      </div>
       </div>
       
       {/* Search */}
