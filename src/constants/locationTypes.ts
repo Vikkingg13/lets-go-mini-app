@@ -1,5 +1,6 @@
 export const locationTypeMap: Record<string, string> = {
     'all': 'Все',
+    'favorite': 'Избранное',
     'eat': 'Поесть',
     'chill': 'Отдохнуть',
     'discover': 'Исследовать',

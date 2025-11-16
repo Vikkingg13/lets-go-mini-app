@@ -11,8 +11,6 @@ import { List } from '@telegram-apps/telegram-ui';
 import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
-import { BottomNavigation } from '@/components/BottomNavigation/BottomNavigation';
-
 
 export default function Main({ locations }: { locations: LocationType[] }) {
 
@@ -31,7 +29,7 @@ const filteredLocations = locations.filter(location => {
 });
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['all', 'eat', 'chill', 'discover', 'have_fun'];
+  const categories = ['all', 'favorite', 'eat', 'chill', 'discover', 'have_fun'];
 
   return (
     <Page back={false}>
@@ -40,7 +38,7 @@ const filteredLocations = locations.filter(location => {
       <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
       <div className="max-w-md mx-auto px-4">
       <header className="p-2 text-black flex justify-between items-center">
-        <h1 className="text-xl font-bold">Локации</h1>
+        <h1 className="text-xl font-bold">Lets Go</h1>
         <div className="flex gap-2">
         <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
             <span>Москва</span>
@@ -102,9 +100,6 @@ const filteredLocations = locations.filter(location => {
           </List>
           
         </div>
-      </div>
-      <div className="pb-16">
-        <BottomNavigation/>
       </div>
       </div>
     </Page>
