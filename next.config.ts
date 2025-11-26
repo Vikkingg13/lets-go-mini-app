@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
             hostname: 'kqpgqvpgewlizelzqmah.supabase.co',
             pathname: '/storage/v1/object/public/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'static-maps.yandex.ru',
+            pathname: '/**',
+          }
         ],
       },
 };
