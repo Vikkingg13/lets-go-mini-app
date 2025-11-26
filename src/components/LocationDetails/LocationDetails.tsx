@@ -1,7 +1,7 @@
 'use client'
 
 import { Location as LocationType } from '@/types/Location';
-import { MapPin, Star, ChevronLeft, ChevronRight, XCircle, CheckCircle, Clock, Globe, MapIcon, Heart, Share2, Phone, Mail, Navigation, ChevronDown } from 'lucide-react';
+import { MapPin, Star, ChevronLeft, ChevronRight, XCircle, CheckCircle, Clock, Globe, MapIcon, Heart, Share2, Phone, Mail, Navigation, ChevronDown, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 import { Page } from '../Page';
@@ -82,25 +82,10 @@ export default function LocationDetails({ location }: LocationDetailProps) {
     }
   }, [currentImageIndex, location.photo]);
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: location.title,
-        text: location.summary || location.description,
-        url: window.location.href,
-      });
-    }
-  };
-
-  // Проверяем, нужно ли обрезать описание (по количеству символов)
-  const shouldTruncate = location.description && location.description.length > 250;
-  const truncatedDescription = shouldTruncate 
-    ? location.description.substring(0, 250).trim() + '...'
-    : location.description;
 
   return (
     <Page back={true}>
-      <div className="container pb-24 mx-auto max-w-md bg-white rounded-lg overflow-hidden mb-4 shadow-sm">
+      <div className="container mx-auto max-w-md bg-white rounded-lg overflow-hidden mb-4 shadow-sm">
         {/* Секция с изображением (слайдер) */}
         <div 
           ref={sliderRef}
@@ -256,8 +241,6 @@ export default function LocationDetails({ location }: LocationDetailProps) {
             </div>
           </div>
 
-          <div className="border-t border-gray-100" />
-
           {/* Краткое описание */}
           {location.summary && (
             <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
@@ -265,80 +248,46 @@ export default function LocationDetails({ location }: LocationDetailProps) {
             </div>
           )}
 
-          {/* Описание с функцией "Читать больше/меньше" */}
+          {/* Описание локации */}
           {location.description && (
-            <div className="relative">
-              <div 
-                className={`text-gray-700 text-base leading-relaxed overflow-hidden transition-all duration-500 ease-in-out ${
-                  isDescriptionExpanded ? 'max-h-none' : 'max-h-32'
-                }`}
-              >
-                <p className={!isDescriptionExpanded && shouldTruncate ? 'line-clamp-4' : ''}>
-                  {isDescriptionExpanded || !shouldTruncate 
-                    ? location.description 
-                    : truncatedDescription}
-                </p>
+            <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+              <p className="text-gray-700 leading-relaxed text-sm whitespace-pre-line">
+                {location.description}
+              </p>
+            </div>
+          )}
+
+        
+
+          {/* Кнопки действий */}
+          <div className="space-y-3 pt-2">
+          {location.address && (
+            <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:bg-gray-100/50 transition-colors">
+              <div className="flex items-center text-gray-800 mb-2">
+                <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center mr-3">
+                  <MapPin size={18} className="text-blue-600" />
+                </div>
+                <span className="font-semibold text-base">Адрес</span>
               </div>
-              
-              {shouldTruncate && (
-                <div className="relative mt-2">
-                  {!isDescriptionExpanded && (
-                    <div className="absolute -top-8 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-                  )}
-                  <button
-                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                    className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-all duration-200 hover:gap-3 group mt-1"
-                  >
-                    <span>{isDescriptionExpanded ? 'Свернуть описание' : 'Читать полностью'}</span>
-                    <ChevronDown 
-                      className={`w-4 h-4 transition-transform duration-300 ${
-                        isDescriptionExpanded ? 'rotate-180' : ''
-                      } group-hover:scale-110`} 
-                    />
-                  </button>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                {location.address}
+              </p>
+
+              {staticMapApiUrl && (
+                <div className="rounded-lg overflow-hidden border border-gray-200 mt-3">
+                  <Image
+                    src={staticMapApiUrl}
+                    alt={`Карта: ${location.address}`}
+                    width={600}
+                    height={300}
+                    className="w-full h-auto object-cover"
+                    unoptimized={true}
+                  />
                 </div>
               )}
             </div>
           )}
-          
-          {/* Плюсы и минусы */}
-          {(location.pros || location.cons) && (
-            <div className="space-y-4">
-              {location.pros && location.pros.length > 0 && (
-                <div className="bg-green-50 rounded-xl p-4 border border-green-100">
-                  <h3 className="font-semibold text-green-800 mb-3 flex items-center text-base">
-                    <CheckCircle className="w-5 h-5 mr-2" />
-                    Плюсы
-                  </h3>
-                  <ul className="space-y-2">
-                    {location.pros.map((pro, index) => (
-                      <li key={index} className="text-sm text-green-700 flex items-start">
-                        <span className="text-green-500 mr-2 mt-0.5">✓</span>
-                        <span>{pro}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {location.cons && location.cons.length > 0 && (
-                <div className="bg-red-50 rounded-xl p-4 border border-red-100">
-                  <h3 className="font-semibold text-red-800 mb-3 flex items-center text-base">
-                    <XCircle className="w-5 h-5 mr-2" />
-                    Минусы
-                  </h3>
-                  <ul className="space-y-2">
-                    {location.cons.map((con, index) => (
-                      <li key={index} className="text-sm text-red-700 flex items-start">
-                        <span className="text-red-500 mr-2 mt-0.5">✗</span>
-                        <span>{con}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-          
+
           {/* Информационные блоки */}
           <div className="space-y-4">
             {location.work_time && (
@@ -354,80 +303,32 @@ export default function LocationDetails({ location }: LocationDetailProps) {
                 </p>
               </div>
             )}
+          </div>
 
-{location.link && (
+          {location.link && (
+            <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:bg-gray-100/50 transition-colors">
               <Link 
                 href={location.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-xl p-4 border-2 border-green-200 hover:border-green-400 hover:shadow-lg transition-all duration-300 block"
+                className="flex items-center text-gray-800"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 flex-shrink-0">
-                    <Globe size={22} className="text-white" />
+                <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <Globe size={18} className="text-blue-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-base text-gray-900">Сайт</span>
+                    <ExternalLink size={16} className="text-gray-600 flex-shrink-0" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-base text-gray-900 group-hover:text-green-700 transition-colors">
-                        Посетить сайт
-                      </span>
-                      <svg 
-                        className="w-4 h-4 text-green-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform flex-shrink-0" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </div>
-                    <p className="text-sm text-gray-600 truncate group-hover:text-green-700 transition-colors">
-                      {location.link.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0]}
-                    </p>
-                  </div>
+                  <p className="text-gray-700 text-sm truncate">
+                    {location.link.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0]}
+                  </p>
                 </div>
               </Link>
-            )}
-
-            {location.address && (
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:bg-gray-100/50 transition-colors">
-                <div className="flex items-center text-gray-800 mb-2">
-                  <div className="w-9 h-9 rounded-lg bg-purple-100 flex items-center justify-center mr-3">
-                    <MapPin size={18} className="text-purple-600" />
-                  </div>
-                  <span className="font-semibold text-base">Адрес</span>
-                </div>
-                <p className="text-gray-700 text-sm ml-12 leading-relaxed">
-                  {location.address}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Кнопки действий */}
-          <div className="space-y-3 pt-2">
-            {location.address && (
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:bg-gray-100/50 transition-colors">
-                {staticMapApiUrl && (
-                  <div className="mt-3 ml-12 rounded-lg overflow-hidden border border-gray-200">
-                    <Image
-                      src={staticMapApiUrl}
-                      alt={`Карта: ${location.address}`}
-                      width={600}
-                      height={300}
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+            </div>
+          )}
             
-            <button 
-              className="w-full bg-gray-100 text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-200 active:scale-98 transition-all flex items-center justify-center gap-2"
-              onClick={handleShare}
-            >
-              <Share2 className="w-5 h-5" />
-              Поделиться
-            </button>
           </div>
         </div>
       </div>
