@@ -7,10 +7,18 @@ import { useEffect, useState } from "react"
 
 import { ChevronRight, Globe, MapPin, Search, SlidersHorizontal, Star } from "lucide-react"
 import { List } from '@telegram-apps/telegram-ui';
+import Image from 'next/image';
 
 import { Location as LocationType } from '@/types/Location';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Location } from '@/components/Location/Location';
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({ 
+  weight: ['600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default function Main({ locations }: { locations: LocationType[] }) {
 
@@ -20,7 +28,6 @@ export default function Main({ locations }: { locations: LocationType[] }) {
 
   const [activeCategory, setActiveCategory] = useState('all');
 
-
   // Изменим фильтрацию, добавив проверку категории
 const filteredLocations = locations.filter(location => {
   const matchesSearch = location.title.toLowerCase().includes(search.toLowerCase());
@@ -29,28 +36,37 @@ const filteredLocations = locations.filter(location => {
 });
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['all', 'favorite', 'eat', 'chill', 'discover', 'have_fun'];
+  const categories = ['all', 'eat', 'chill', 'discover', 'have_fun'];
 
   return (
     <Page back={false}>
       <div className="max-w-md mx-auto bg-white min-h-screen flex flex-col">
       {/* Header */}
       <div className='fixed top-0 left-0 right-0 z-50 bg-white'>
-      <div className="max-w-md mx-auto px-4">
-      <header className="p-2 text-black flex justify-between items-center">
-        <h1 className="text-xl font-bold">Lets Go</h1>
-        <div className="flex gap-2">
-        <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
-            <span>Москва</span>
-            <ChevronRight size={16} />
-          </button>
-          <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
-            <Globe size={16} />
-            <span>RU</span>
-          </button>
+        <div className="max-w-md mx-auto px-4">
+        <header className="p-2 text-black flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <h1 className={`text-xl font-bold ${poppins.className} tracking-tight text-purple-700`}>Lets Go</h1>
+          <Image 
+            src="/icon.png" 
+            alt="Lets Go App Icon" 
+            width={24} 
+            height={24}
+            className="object-contain"
+          />
         </div>
-      </header>
-      </div>
+        <div className="flex gap-2">
+          <button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
+              <span>Москва</span>
+              <ChevronRight size={16} />
+            </button>
+            {/*<button className="border rounded-full px-3 py-1.5 flex items-center gap-1 text-sm">
+              <Globe size={16} />
+              <span>RU</span>
+            </button>*/}
+          </div>
+        </header>
+        </div>
       </div>
       
       {/* Search */}

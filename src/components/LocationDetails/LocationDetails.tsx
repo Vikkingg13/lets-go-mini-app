@@ -101,14 +101,12 @@ export default function LocationDetails({ location }: LocationDetailProps) {
                 className="flex h-full transition-transform duration-300 ease-in-out"
                 style={{
                   transform: `translateX(-${currentImageIndex * 100}%)`,
-                  width: `${(location.photo?.length || 1) * 100}%`
                 }}
               >
                 {location.photo.map((photo, index) => (
                   <div
                     key={index}
                     className="relative flex-shrink-0 w-full h-full"
-                    style={{ width: `${100 / (location.photo?.length || 1)}%` }}
                   >
                     <Image
                       src={photo.formats.medium.url}
@@ -123,7 +121,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
-              <div className="absolute top-4 right-4 flex gap-2 z-20">   
+              {/*<div className="absolute top-4 right-4 flex gap-2 z-20">   
                 <button
                   onClick={() => setIsFavorite(!isFavorite)}
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-sm ${
@@ -135,9 +133,9 @@ export default function LocationDetails({ location }: LocationDetailProps) {
                 >
                   <Heart className={`w-5 h-5 transition-all ${isFavorite ? "fill-current scale-110" : ""}`} />
                 </button>
-              </div>
+              </div>*/}
 
-              {location.photo.length > 1 && (
+              {/*location.photo.length > 1 && (
                 <>
                   <button
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm p-2.5 rounded-full shadow-lg z-20 hover:bg-white hover:scale-110 transition-all duration-200 active:scale-95"
@@ -154,7 +152,7 @@ export default function LocationDetails({ location }: LocationDetailProps) {
                     <ChevronRight size={22} className="text-gray-800" />
                   </button>
                 </>
-              )}
+              )*/}
 
               {location.photo.length > 1 && (
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center z-20 gap-1.5">
@@ -196,7 +194,13 @@ export default function LocationDetails({ location }: LocationDetailProps) {
               {location.photo.map((photo, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentImageIndex(index)}
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true);
+                      setCurrentImageIndex(index);
+                      setTimeout(() => setIsTransitioning(false), 300);
+                    }
+                  }}
                   className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
                     index === currentImageIndex ? 'border-blue-500 scale-105' : 'border-gray-200'
                   }`}
