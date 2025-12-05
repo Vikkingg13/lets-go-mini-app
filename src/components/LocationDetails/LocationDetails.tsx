@@ -1,12 +1,12 @@
 'use client'
 
 import { Location as LocationType } from '@/types/Location';
-import { MapPin, Star, ChevronLeft, ChevronRight, XCircle, CheckCircle, Clock, Globe, MapIcon, Heart, Share2, Phone, Mail, Navigation, ChevronDown, ExternalLink } from 'lucide-react';
+import { MapPin,  Clock, Globe, MapIcon, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
 import { Page } from '../Page';
+import { useRouter } from 'next/navigation';
 
-import { badgeColors } from '@/constants/badgeColors';
 import { locationTypeMap } from '@/constants/locationTypes';
 import { Link } from '../Link/Link';
 
@@ -14,18 +14,14 @@ interface LocationDetailProps {
   location: LocationType;
 }
 
-const staticMapApiUrl = process.env.NEXT_PUBLIC_STATIC_MAP_API_URL;
-
-const DESCRIPTION_MAX_LINES = 4; // Количество строк до обрезки
-
 export default function LocationDetails({ location }: LocationDetailProps) {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handlePrevImage = () => {
     if (isTransitioning) return;
@@ -121,39 +117,6 @@ export default function LocationDetails({ location }: LocationDetailProps) {
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
-              {/*<div className="absolute top-4 right-4 flex gap-2 z-20">   
-                <button
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-sm ${
-                    isFavorite 
-                      ? "bg-red-500 text-white scale-110" 
-                      : "bg-white/90 text-gray-600 hover:bg-white hover:scale-105"
-                  }`}
-                  aria-label={isFavorite ? "Удалить из избранного" : "Добавить в избранное"}
-                >
-                  <Heart className={`w-5 h-5 transition-all ${isFavorite ? "fill-current scale-110" : ""}`} />
-                </button>
-              </div>*/}
-
-              {/*location.photo.length > 1 && (
-                <>
-                  <button
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm p-2.5 rounded-full shadow-lg z-20 hover:bg-white hover:scale-110 transition-all duration-200 active:scale-95"
-                    onClick={handlePrevImage}
-                    aria-label="Предыдущее фото"
-                  >
-                    <ChevronLeft size={22} className="text-gray-800" />
-                  </button>
-                  <button
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm p-2.5 rounded-full shadow-lg z-20 hover:bg-white hover:scale-110 transition-all duration-200 active:scale-95"
-                    onClick={handleNextImage}
-                    aria-label="Следующее фото"
-                  >
-                    <ChevronRight size={22} className="text-gray-800" />
-                  </button>
-                </>
-              )*/}
-
               {location.photo.length > 1 && (
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center z-20 gap-1.5">
                   {location.photo.map((_, index) => (
@@ -240,17 +203,10 @@ export default function LocationDetails({ location }: LocationDetailProps) {
               </div>
               <div className="flex items-center text-gray-600">
                 <MapIcon className="w-4 h-4 mr-1.5" />
-                <span className="text-sm">Москва</span>
+                <span className="text-sm">{location.city}</span>
               </div>
             </div>
           </div>
-
-          {/* Краткое описание */}
-          {location.summary && (
-            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
-              <p className="text-gray-800 font-medium leading-relaxed text-sm">{location.summary}</p>
-            </div>
-          )}
 
           {/* Описание локации */}
           {location.description && (
@@ -273,22 +229,30 @@ export default function LocationDetails({ location }: LocationDetailProps) {
                 </div>
                 <span className="font-semibold text-base">Адрес</span>
               </div>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                {location.address}
+              <p className="text-gray-700 text-sm ml-12">
+              {location.city}, {location.address}
               </p>
-
-              {staticMapApiUrl && (
-                <div className="rounded-lg overflow-hidden border border-gray-200 mt-3">
-                  <Image
-                    src={staticMapApiUrl}
-                    alt={`Карта: ${location.address}`}
-                    width={600}
-                    height={300}
-                    className="w-full h-auto object-cover"
-                    unoptimized={true}
-                  />
-                </div>
-              )}
+            {location.static_map && (
+              <div 
+                className="rounded-lg overflow-hidden border border-gray-200 mt-3 cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => {
+                  if (location.coordinates) {
+                    router.push(`/map?lng=${location.coordinates.longitude}&lat=${location.coordinates.latitude}`);
+                  } else {
+                    router.push('/map');
+                  }
+                }}
+              >
+                <Image
+                  src={location.static_map.url}
+                  alt={`Карта: ${location.address}`}
+                  width={600}
+                  height={300}
+                  className="w-full h-auto object-cover"
+                  unoptimized={true}
+                />
+              </div>
+            )}
             </div>
           )}
 

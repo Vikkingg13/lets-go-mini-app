@@ -17,6 +17,8 @@ export default async function LocationPage({ params }
   // Загружаем данные о локации по ID
   const location = await fetchLocationById(documentId);
 
+  console.log(location);
+
   // Если локация не найдена, показываем страницу 404
   if (!location) {
     notFound();

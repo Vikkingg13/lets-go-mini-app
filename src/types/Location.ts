@@ -42,10 +42,16 @@ export interface Location {
   summary: string;
   description: string;
   type: string;
+  city: string;
   address: string;
   photo: Photo[];
+  static_map: Photo;
   pros?: string[];
   cons?: string[];
   work_time: string;
-  link: string
+  link: string,
+  coordinates: {
+    longitude: number;
+    latitude: number;
+  }
 }

@@ -36,7 +36,7 @@ const filteredLocations = locations.filter(location => {
 });
 
   // Пример списка категорий (замените на свои фактические категории)
-  const categories = ['all', 'eat', 'chill', 'discover', 'have_fun'];
+  const categories = ['all', 'eat', 'discover', 'have_fun'];
 
   return (
     <Page back={false}>
